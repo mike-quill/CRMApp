@@ -1,0 +1,432 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+/* Colour palette for Hager Industries */
+:root {
+    --dark-red: #900028;
+    --light-red: #AF5152;
+    --dark-grey: #231F20;
+    --light-grey: #929497;
+    --white: #FFFFFF;
+}
+
+@font-face {
+    font-family: roboto-condensed;
+    src: url('../resources/HagerBranding/Fonts/roboto-condensed/RobotoCondensed-Regular.ttf');
+}
+
+@font-face {
+    font-family: roboto-condensed-bold;
+    src: url('../resources/HagerBranding/Fonts/roboto-condensed/RobotoCondensed-Bold.ttf');
+}
+
+* {
+    font-family: roboto-condensed;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.navbar-header img {
+    height: 40px;
+    margin: 5px;
+}
+
+a {
+    color: var(--light-red);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--dark-red);
+}
+
+.dropdown-item:active {
+    background-color: var(--dark-grey);
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: var(--light-red);
+    border-color: var(--light-red);
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .show > .nav-link {
+    color: #fff;
+    background-color: var(--light-red);
+    border-color: var(--light-red);
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100vh;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 10px;
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    text-align: center;
+}
+
+/* All Pages */
+.form-control:focus {
+    border: 2px solid var(--light-red);
+    box-shadow: none;
+}
+
+.btn {
+    background-color: var(--light-red);
+    border: none;
+    color: var(--white);
+}
+
+.btn:focus {
+    box-shadow: 0 0 0.2rem 0.2rem var(--light-grey);
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--dark-red);
+    outline: none;
+    padding: 0;
+}
+
+.btn-link:hover {
+    color: var(--dark-grey);
+}
+
+.btn:hover:enabled {
+    background-color: var(--dark-red);
+    color: var(--white);
+}
+
+.btn:hover:disabled {
+    background-color: var(--light-red);
+    color: var(--white);
+}
+
+/* All h1s are headers */
+h1 {
+    border-bottom: 1px solid var(--dark-red);
+    margin-bottom: 20px;
+    font-family: roboto-condensed-bold;
+}
+
+/* Nav links at bottom of page */
+.nav-link-container {
+    font-size: 16px;
+}
+
+/* Announcements */
+.announcements-container .card {
+    margin-bottom: 20px;
+}
+
+/* Login */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Details */
+.details-container {
+    border-left: 1px dashed var(--light-red);
+    margin-left: 15px;
+}
+
+.details-container ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 30px;
+}
+
+.details-container ul li {
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.details-container ul li span {
+    font-family: roboto-condensed-bold;
+}
+
+/* Collapsed row on mobile index view reuses details css */
+#collapse-table .collapsed-row .details-container ul {
+    margin-left: 20px; /* Not enough space for 30px */
+}
+
+/* Uses table font size instead of 16px */
+#collapse-table .collapsed-row .details-container ul li {
+    font-size: inherit;
+}
+
+/* Hides hidden rows fully */
+#collapse-table .collapsible-row.collapsed + tr td {
+    padding: 0 12px;
+}
+
+/* Hover on collapsible rows */
+#collapse-table .collapsible-row:hover {
+    background-color: #F5F5F5;
+    cursor: pointer;
+}
+
+.switch {
+    --line: #929497;
+    --dot: #929497;
+    --circle: #929497;
+    --duration: 0.3s;
+    --text: #9ea0be;
+    cursor: pointer;
+}
+
+    .switch input {
+        display: none;
+    }
+
+        .switch input + div {
+            position: relative;
+        }
+
+            .switch input + div:before, .switch input + div:after {
+                --s: 1;
+                content: "";
+                position: absolute;
+                height: 2px;
+                top: 10px;
+                width: 24px;
+                background: var(--line);
+                transform: scaleX(var(--s));
+                transition: transform var(--duration) ease;
+            }
+
+            .switch input + div:before {
+                --s: 0;
+                left: 0;
+                transform-origin: 0 50%;
+                border-radius: 2px 0 0 2px;
+            }
+
+            .switch input + div:after {
+                left: 28px;
+                transform-origin: 100% 50%;
+                border-radius: 0 2px 2px 0;
+            }
+
+            .switch input + div span {
+                padding-left: 56px;
+                line-height: 24px;
+                color: var(--text);
+            }
+
+                .switch input + div span:before {
+                    --x: 0;
+                    --b: var(--circle);
+                    --s: 4px;
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    box-shadow: inset 0 0 0 var(--s) var(--b);
+                    transform: translateX(var(--x));
+                    transition: box-shadow var(--duration) ease, transform var(--duration) ease;
+                }
+
+                .switch input + div span:not(:empty) {
+                    padding-left: 64px;
+                }
+
+        .switch input:checked + div:before {
+            --s: 1;
+        }
+
+        .switch input:checked + div:after {
+            --s: 0;
+        }
+
+        .switch input:checked + div span:before {
+            --x: 28px;
+            --s: 4px;
+            --b: var(--dot);
+        }
+.red {
+    color: darkred;
+    font-weight: 600;
+}
+
+
+
+
+#mergetable td {
+    vertical-align: middle;
+    text-align: left;
+    margin-right: 32px;
+}
+
+#mergetable td:nth-child(2) {
+    text-align: right;
+}
+
+#mergetable td:nth-child(4) {
+    text-align: left;
+}
+
+#mergetable td:nth-child(1) {
+    font-weight: bold;
+    margin-right: 120px;
+}
+
+    #mergetable td h4 {
+        display: block;
+        white-space: nowrap;
+        /*margin: 0 10vw 0 10vw;*/
+    }
+
+#mergetable td input[type="radio"] {
+    margin: 0 auto;
+    margin: 0px 12px 0px 12px;
+}
+
+/*
+    Media queries for index page mobile/desktop breakpoints 
+    - Employee: 1600px
+    - Contact: 1000px
+    - Company: 1400px
+*/
+
+/*Merge Mobile*/
+
+@media (max-width: 1400px) {
+    .merge-desktop {
+        display: none;
+    }
+
+    .merge-mobile {
+        display: block;
+        overflow-x: scroll;
+    }
+}
+
+/* Merge Desktop*/
+@media (min-width: 1400px) {
+    .merge-desktop {
+        display: block;
+    }
+
+    .merge-mobile {
+        display: none;
+    }
+}
+
+/* Employee Mobile */
+@media (max-width: 1600px) {
+    .employee-index-desktop {
+        display: none;
+    }
+
+    .employee-index-mobile {
+        display: block;
+    }
+}
+
+/* Employee Desktop */
+@media (min-width: 1600px) {
+    .employee-index-desktop {
+        display: block;
+    }
+
+    .employee-index-mobile {
+        display: none;
+    }
+}
+
+/* Contact Mobile */
+@media (max-width: 1000px) {
+    .contact-index-desktop {
+        display: none;
+    }
+
+    .contact-index-mobile {
+        display: block;
+    }
+}
+
+/* Contact Desktop */
+@media (min-width: 1000px) {
+    .contact-index-desktop {
+        display: block;
+    }
+
+    .contact-index-mobile {
+        display: none;
+    }
+}
+
+/* Company Mobile */
+@media (max-width: 1400px) {
+    .company-index-desktop {
+        display: none;
+    }
+
+    .company-index-mobile {
+        display: block;
+    }
+}
+
+/* Company Desktop */
+@media (min-width: 1400px) {
+    .company-index-desktop {
+        display: block;
+    }
+
+    .company-index-mobile {
+        display: none;
+    }
+}

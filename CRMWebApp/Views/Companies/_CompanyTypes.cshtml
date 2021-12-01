@@ -1,0 +1,86 @@
+﻿<div class="accordion" id="accordionWrapper">
+	<div class="card">
+		<div class="card-header" id="headingOne">
+			<h2 class="mb-0">
+				<button id="contractor-type-title" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+				</button>
+			</h2>
+		</div>
+		<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionWrapper">
+			<div class="card-body">
+				<div class="col-12">
+					<div class="row">
+						<div class="form-group col-md-6">
+                            <label class="control-label"> Contractor Types Assigned</label> <button type="button" id="btnContractorRight" class="btn btn-danger btn-sm">
+								<strong>-</strong>
+							</button>
+							@Html.ListBox("selectedContractorOptions", (MultiSelectList)ViewBag.contractorSelOpts, new { @size = 10, @class = "form-control" })
+						</div>
+						<div class="form-group col-md-6">
+							<label class="control-label"> Choose Contractor Types</label> <button type="button" id="btnContractorLeft" class="btn btn-success btn-sm">
+								<strong>+</strong>
+							</button>
+							@Html.ListBox("availContractorOptions", (MultiSelectList)ViewBag.contractorAvailOpts, new { @size = 10, @class = "form-control" })
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" id="headingTwo">
+			<h2 class="mb-0">
+				<button id="customer-type-title" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				</button>
+			</h2>
+		</div>
+		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionWrapper">
+			<div class="card-body">
+				<div class="col-12">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="control-label"> Customer Types Assigned</label> <button type="button" id="btnCustomerRight" class="btn btn-danger btn-sm">
+								<strong>-</strong>
+							</button>
+							@Html.ListBox("selectedCustomerOptions", (MultiSelectList)ViewBag.customerSelOpts, new { @size = 10, @class = "form-control" })
+						</div>
+						<div class="form-group col-md-6">
+							<label class="control-label"> Choose Customer Types</label> <button type="button" id="btnCustomerLeft" class="btn btn-success btn-sm">
+								<strong>+</strong>
+							</button>
+							@Html.ListBox("availCustomerOptions", (MultiSelectList)ViewBag.customerAvailOpts, new { @size = 10, @class = "form-control" })
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" id="headingThree">
+			<h2 class="mb-0">
+				<button id="vendor-type-title" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				</button>
+			</h2>
+		</div>
+		<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionWrapper">
+			<div class="card-body">
+				<div class="col-12">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="control-label"> Vendor Types Assigned</label> <button type="button" id="btnVendorRight" class="btn btn-danger btn-sm">
+								<strong>-</strong>
+							</button>
+							@Html.ListBox("selectedVendorOptions", (MultiSelectList)ViewBag.vendorSelOpts, new { @size = 10, @class = "form-control" })
+						</div>
+						<div class="form-group col-md-6">
+							<label class="control-label"> Choose Vendor Types</label> <button type="button" id="btnVendorLeft" class="btn btn-success btn-sm">
+								<strong>+</strong>
+							</button>
+							@Html.ListBox("availVendorOptions", (MultiSelectList)ViewBag.vendorAvailOpts, new { @size = 10, @class = "form-control" })
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

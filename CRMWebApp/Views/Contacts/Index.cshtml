@@ -1,0 +1,85 @@
+﻿@model IEnumerable<CRMWebApp.Models.Contact>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Contacts</h1>
+
+@if (User.IsInRole("Admin") || User.IsInRole("Supervisor"))
+{
+    <a asp-action="Create"><button type="button" class="btn mb-2">Create New Contact</button></a>
+}
+<form asp-action="Index" method="get">
+    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+    <div class="form-horizontal">
+        <button class="btn mb-2" type="button" data-toggle="collapse" id="filterToggle" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Filter/Search
+        </button>
+        <div class="collapse @(ViewData["Filtering"])" id="collapseFilter">
+            <div class="card card-body bg-light mb-2">
+                <div class="form-row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">Search By Company Name:</label>
+                            @Html.TextBox("SearchStringCompany", null, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Select by Catergory:</label>
+                            @Html.DropDownList("CategoryID", null, "All Categories", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">Search By Contact Name:</label>
+                            @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <span>Show Inactive Contacts:</span>
+                            @Html.CheckBox("showInactive", false)
+                            &nbsp; &nbsp;
+                            <span>Show Contractor Contacts:</span>
+                            @Html.CheckBox("showContractor", false)
+                            &nbsp; &nbsp;
+                            <span>Show Customer Contacts:</span>
+                            @Html.CheckBox("showCustomer", false)
+                            &nbsp; &nbsp;
+                            <span>Show Vendor Contacts:</span>
+                            @Html.CheckBox("showVendor", false)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6  align-self-end">
+                        <div class="form-group">
+                            <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary" />
+                            <a asp-action="Index" class="btn btn-outline-dark ">Clear</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @TempData["Success"]
+
+    <div class="contact-index-desktop">
+        <partial name="_IndexDesktop" />
+    </div>
+    <div class="contact-index-mobile">
+        <partial name="_IndexMobile" />
+    </div>
+
+    <partial name="_PagingNavBar" />
+</form>
+@section Scripts {
+    <script type="text/javascript">
+		$(function () {
+			$('[data-toggle="popover"]').popover();
+        });
+    </script>
+}

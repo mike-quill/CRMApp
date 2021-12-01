@@ -1,0 +1,46 @@
+﻿@model List<VendorType>
+@{
+	ViewData["Title"] = "Sort";
+}
+
+@using (Html.BeginForm("Sort", "VendorTypes", FormMethod.Post))
+{
+	<h3>Drag and Drop to Reorder List</h3>
+	<table id="VendorType" class="sortable table w-auto table-bordered">
+		<thead class="thead-light">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (VendorType vendor in Model)
+			{
+				<tr>
+					<td>
+						@vendor.ID
+						<input type="hidden" name="vendorId" value="@vendor.ID" />
+					</td>
+					<td>@vendor.Name</td>
+				</tr>
+			}
+		</tbody>
+
+	</table>
+	<br />
+	<input type="submit" value="Update Preference" class="btn ml-0" />
+	<div>
+		<a asp-action="Index" asp-controller="Lookups" asp-route-Tab="VendorTypesTab">Back to Lookup List</a>
+	</div>
+	<script type="text/javascript">
+		$(".sortable tbody").sortable();
+		$(".sortable tbody").disableSelection();
+	</script>
+}
+
+
+
+
+
+
+

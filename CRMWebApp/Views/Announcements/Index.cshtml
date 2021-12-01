@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CRMWebApp.Models.Announcement>
+@using CRMWebApp.Utility;
+
+@{
+    ViewData["Title"] = "Announcements";
+}
+
+<div class="announcements-container">
+    <h1 class="display-4">Announcements</h1>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Create"><button type="button" class="btn mb-2">Create New Announcement</button></a>
+    }
+    <form asp-action="Index" method="get">
+        <div class="row">
+            <div class="col-12 col-md-8 order-last order-md-first">
+                @{
+                    // Get the users permission level
+                    int userPermissionLevel = 0;
+
+                    @foreach (var entry in PermissionLevelHelper.PermissionLevelToRole.AsEnumerable().Reverse())
+                    {
+                        if (entry.Key == 0 || User.IsInRole(entry.Value))
+                        {
+                            userPermissionLevel = entry.Key;
+                            break;
+                        }
+                    }
+                }
+
+                @{ int count = 0; }
+                @foreach (var item in Model)
+                {
+                    // If the announcement permission level is <= the users highest permission level
+                    if (item.PermissionLevel <= userPermissionLevel)
+                    {
+                        count++;
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Title</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">@item.DateCreated.ToString("yyyy-MM-dd h:mm tt") • @PermissionLevelHelper.GetRole(item.PermissionLevel)</h6>
+                                <p style="white-space: pre-line;" class="card-text">@item.Content</p>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="card-link" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                                    <a class="card-link" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+
+                @if (count == 0)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nothing to see here</h5>
+                            <p class="card-text">There are currently no announcements posted, check back later!</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-12 col-md-4 order-first order-md-last">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="date" class="card-title"></h5>
+                        <p id="greeting" class="card-text">Good morning!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <partial name="_PagingNavBar" />
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    // Wait until content loads before running js
+    window.addEventListener('load', function () {
+        document.getElementById("date").innerText = getReadableDate();
+        document.getElementById("greeting").innerText = getGreeting();
+    });
+</script>

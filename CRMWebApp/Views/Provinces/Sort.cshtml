@@ -1,0 +1,46 @@
+﻿@model List<Province>
+@{
+	ViewData["Title"] = "Sort";
+}
+
+@using (Html.BeginForm("Sort", "Provinces", FormMethod.Post))
+{
+	<h3>Drag and Drop to Reorder List</h3>
+	<table id="Province" class="sortable table w-auto table-bordered">
+		<thead class="thead-light">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Province province in Model)
+			{
+				<tr>
+					<td>
+						@province.ID
+						<input type="hidden" name="provinceId" value="@province.ID" />
+					</td>
+					<td>@province.Name</td>
+				</tr>
+			}
+		</tbody>
+
+	</table>
+	<br />
+	<input type="submit" value="Update Preference" class="btn ml-0" />
+	<div>
+		<a asp-action="Index" asp-controller="Lookups" asp-route-Tab="ProvincesTab">Back to Lookup List</a>
+	</div>
+	<script type="text/javascript">
+		$(".sortable tbody").sortable();
+		$(".sortable tbody").disableSelection();
+	</script>
+}
+
+
+
+
+
+
+

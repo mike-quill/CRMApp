@@ -1,0 +1,91 @@
+﻿@using CRMWebApp.Utility
+@model MergeHelper
+
+
+@{
+    ViewData["Title"] = "Merge";
+}
+@using (Html.BeginForm("Merge", "Merge", FormMethod.Post))
+{
+    <div class="merge-desktop">
+        <partial name="_MergeDesktop" />
+    </div>
+    <div class="merge-mobile">
+        <partial name="_MergeMobile" />
+    </div>
+    <div class="form-horizontal">
+        <button class="btn mb-2" id="btnMergeAction" method="post" type="submit">
+            Merge Company Record
+        </button><br />
+        <a asp-action="Index" asp-controller="Merge">Back to Merge List</a>
+    </div>
+}
+<script>
+    $(function () {
+        $('input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) { $(this).closest('tr').children(".mergeRight").toggleClass('red'); }
+            else { $(this).closest('tr').children(".mergeLeft").toggleClass('red'); }
+        })
+        var target = $(this).parent().find('input[type=hidden]').val();
+        $('input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                target = 1;
+            } else {
+                target = 0;
+            }
+            $(this).parent().find('input[type=hidden]').val(target);
+        })
+        $("#autochanger").change(function () {
+            $("#resultlist").empty();
+            var match = $("#autochanger option:selected").text().charAt(0);
+            $("#autochanger option:selected").clone().appendTo($("#resultlist"));
+            $("#autochanger > option").each(function () {
+                if (this.text.charAt(0) == match) {
+                    this.clone().appendTo($("#resultlist"));
+                }
+            })
+        });
+        if ($(window).width() < 1440) {
+            console.log("mobile view displayed")
+            $('.merge-desktop input[type=hidden]').each(function (v) {
+                $(this).prop("disabled", true)
+            })
+            console.log("hidden inputs disabled: " + $('input[type=hidden]:disabled').length)
+        }
+        else {
+            console.log("desktop view displayed")
+            $('.merge-mobile input[type=hidden]').each(function (v) {
+                $(this).prop("disabled", true)
+            })
+            console.log("hidden inputs disabled: " + $('input[type=hidden]:disabled').length)
+        }
+    });
+    $('input[type="checkbox"]').on('change', function () {
+        var target = $(this).parent().find('input[type=hidden]').val();
+        if ($(this).is(':checked')) {
+            $(this).closest('tr').children(".mergeRight").toggleClass('red');
+            $(this).closest('tr').children(".mergeLeft").toggleClass('red');
+            target = 1;
+        }
+        else {
+            $(this).closest('tr').children(".mergeLeft").toggleClass('red');
+            $(this).closest('tr').children(".mergeRight").toggleClass('red');
+            target = 0;
+        }
+        $(this).parent().find('input[type=hidden]').val(target);
+    });
+    //disabled inputs based on screen width on resize
+    $(window).resize(function () {
+        if ($(window).width() < 1400) {
+            $('.merge-desktop input[type=hidden]').each(function (v) {$(this).prop("disabled", true)})
+            $('.merge-mobile input[type=hidden]').each(function (v) {$(this).prop("disabled", false)})
+        }
+        else {
+            $('.merge-desktop input[type=hidden]').each(function (v) {$(this).prop("disabled", false)})
+            $('.merge-mobile input[type=hidden]').each(function (v) {$(this).prop("disabled", true)})
+        }
+    })
+    $("#btnMergeAction").onclick(function () {
+        $http.post('/Merge/Merge')
+    });
+</script>

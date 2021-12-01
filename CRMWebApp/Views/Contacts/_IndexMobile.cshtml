@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CRMWebApp.Models.Contact>
+
+<table id="collapse-table" class="table">
+    <thead>
+        <tr>
+            <th>
+                <input type="submit" name="actionButton" value="Name" class="btn-link" />
+            </th>
+
+            <th>
+                <input type="submit" disabled="disabled" value="Phone Numbers" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" name="actionButton" value="Company" class="btn-link" />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-toggle="collapse" data-target="#collapsed-row-@item.ID" class="collapsed collapsible-row">
+                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                <td>
+                    @{
+                        bool showingCell = !string.IsNullOrEmpty(item.CellPhoneNumber);
+
+                        if (showingCell)
+                        {
+                            @:Cell: @Html.DisplayFor(modelItem => item.CellPhoneNumber)
+                        }
+
+                        if (!string.IsNullOrEmpty(item.WorkPhoneNumber))
+                        {
+                            if (showingCell)
+                            {
+                                <br />
+                            }
+
+                            @:Work: @Html.DisplayFor(modelItem => item.WorkPhoneNumber)
+                        }
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Company.Name)</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <!-- Collapse on the div because animations do not work on the td -->
+                    <div id="collapsed-row-@item.ID" class="collapse collapsed-row" data-parent="#collapse-table">
+                        <div class="details-container">
+                            <ul>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.FirstName):</span> @Html.DisplayFor(modelItem => item.FirstName)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.LastName):</span> @Html.DisplayFor(modelItem => item.LastName)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.JobTitle):</span> @Html.DisplayFor(modelItem => item.JobTitle)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.CellPhoneNumber):</span> @Html.DisplayFor(modelItem => item.CellPhoneNumber)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.WorkPhoneNumber):</span> @Html.DisplayFor(modelItem => item.WorkPhoneNumber)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.Email):</span> @Html.DisplayFor(modelItem => item.Email)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.Active):</span> @Html.DisplayFor(modelItem => item.Active)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.Notes):</span> @Html.DisplayFor(modelItem => item.Notes)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.Company):</span> @Html.DisplayFor(modelItem => item.Company.Summary)</li>
+                            </ul>
+                        </div>
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> @: |
+                            }
+                            <a asp-action="Details" asp-route-id="@item.ID"> Details </a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

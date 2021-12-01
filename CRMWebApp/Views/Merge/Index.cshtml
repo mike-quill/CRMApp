@@ -1,0 +1,106 @@
+﻿@using CRMWebApp.Utility
+@model MergeHelper
+
+@{ ViewData["Title"] = "Index"; }
+<h1>Merge Data</h1>
+
+@using (Html.BeginForm("Index", "Merge", FormMethod.Post, null))
+{
+<div>
+    <div class="card-body form-row bg-light mb-2">
+        <div class="col-md-4 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">Select a company to merge:</label>
+                    <input type="text" id="leftSearch" placeholder="Search and Select"/>
+                    @Html.ListBoxFor(x => x.SelectedCompanyIDs, Model.CompanySelectList, htmlAttributes: new { size = 10, @class = "form-control", @id = "leftList", @name = "companyLeft"})
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+			<div class="form-group">
+				<label class="control-label">Select a company to merge:</label>
+                    <input type="text" id="rightSearch" placeholder="Search and Select"/>
+                    @Html.ListBoxFor(x => x.SelectedCompanyIDs, Model.CompanySelectList, htmlAttributes: new { size = 10, @class = "form-control", @id = "rightList", @name = "companyRight" })
+			</div>
+        </div>
+    </div>
+</div>
+<div class="form-horizontal">
+    <button class="btn mb-2" id="btnMergeSubmit" method="post" type="submit">
+        Merge
+    </button><br />
+    <a asp-action="Index" asp-controller="Announcements">Back to Announcements</a>
+</div>            
+}
+
+<script>
+    $(document).ready(function () {
+
+        var compList;
+        $.getJSON("/Companies/GetCompaniesJSON", function (json) {
+            compList = json;
+        });
+
+
+        $("#leftSearch").change(function () {
+            $("#leftList").empty();
+			var match = document.getElementById('leftSearch').value.toUpperCase();
+
+            if (compList !== null && !jQuery.isEmptyObject(compList)) {
+                $.each(compList, function() {
+                    if (this.displayText.toUpperCase().includes(match)) {
+						var opt = document.createElement("option");
+						opt.text = this.displayText;
+                        opt.value = this.id;
+						document.getElementById("leftList").options.add(opt);
+					}
+				})
+			}
+        });
+
+		$("#rightSearch").change(function () {
+			$("#rightList").empty();
+			var match = document.getElementById('rightSearch').value.toUpperCase();
+
+			if (compList !== null && !jQuery.isEmptyObject(compList)) {
+                $.each(compList, function () {
+					if (this.displayText.toUpperCase().includes(match)) {
+						var opt = document.createElement("option");
+						opt.text = this.displayText;
+						opt.value = this.id;
+						document.getElementById("rightList").options.add(opt);
+					}
+				})
+			}
+		});
+
+        $(function () {
+            $("#leftList option").click(function () {
+                var left = $(this);
+                $("#txtCompanyLeft").val($(this).val());
+            });
+        });
+        $(function () {
+            $("#rightList option").click(function () {
+                var right = $(this);
+                $("#txtCompanyRight").val($(this).val());
+            });
+        });
+
+        $('input,select').on('keypress', function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                if (e.currentTarget.id == "leftSearch") {
+                    document.getElementById("leftList").focus();
+                }
+                if (e.currentTarget.id == "rightSearch") {
+                    document.getElementById("rightList").focus();
+                }
+            }
+        });
+        //$(function () {
+        //    $("#btnMergeSubmit").click(function () {
+        //        $http.post('/Merge/Index')
+        //    });
+        //});
+    });
+</script>

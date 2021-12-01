@@ -1,0 +1,7 @@
+﻿
+PM> Commands...
+
+Add-Migration -Context HagerDbContext -o Data\HagerMigrations Initial
+Add-Migration CreateIdentitySchema -Context ApplicationDbContext
+Update-Database -Context HagerDbContext
+Update-Database -Context ApplicationDbContext

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<CRMWebApp.Models.Employee>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input type="submit" name="actionButton" value="First Name" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" name="actionButton" value="Last Name" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Job Position" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Employment Type" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Cell Phone" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Home Phone" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" name="actionButton" value="Email" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Date Joined" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Emergency Contact Name" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Emergency Contact Phone" class="btn-link" />
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobPosition.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmploymentType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CellPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HomePhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateJoined)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmergencyContactName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmergencyContactPhoneNumber)
+                </td>
+                <td>
+                    @{
+                        if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> @: |
+                        }
+                        <a asp-action="Details" asp-route-id="@item.ID"> Details </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

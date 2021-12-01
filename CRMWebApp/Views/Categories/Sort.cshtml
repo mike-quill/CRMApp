@@ -1,0 +1,39 @@
+﻿@model List<Category>
+@{
+	ViewData["Title"] = "Sort";
+}
+
+@using (Html.BeginForm("Sort", "Categories", FormMethod.Post))
+{
+	<h3>Drag and Drop to Reorder List</h3>
+	<table id="Category" class="sortable table w-auto table-bordered">
+		<thead class="thead-light">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Category category in Model)
+			{
+				<tr>
+					<td>
+						@category.ID
+						<input type="hidden" name="catId" value="@category.ID" />
+					</td>
+					<td>@category.Name</td>
+				</tr>
+			}
+		</tbody>
+
+	</table>
+	<br />
+	<input type="submit" value="Update Preference" class="btn ml-0"/>
+	<div>
+		<a asp-action="Index" asp-controller="Lookups" asp-route-Tab="CategoryTab">Back to Lookup List</a>
+	</div>
+	<script type="text/javascript">
+		$(".sortable tbody").sortable();
+		$(".sortable tbody").disableSelection();
+	</script>
+}

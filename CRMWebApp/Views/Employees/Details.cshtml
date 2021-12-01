@@ -1,0 +1,33 @@
+﻿@model CRMWebApp.Models.Employee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName) (Employee)</h1>
+
+<div class="details-container">
+    <ul>
+        <li><span>@Html.DisplayNameFor(model => model.FirstName):</span> @Html.DisplayFor(model => model.FirstName)</li>
+        <li><span>@Html.DisplayNameFor(model => model.LastName):</span> @Html.DisplayFor(model => model.LastName)</li>
+        <li><span>@Html.DisplayNameFor(model => model.JobPosition):</span> @Html.DisplayFor(model => model.JobPosition.Name)</li>
+        <li><span>@Html.DisplayNameFor(model => model.EmploymentType):</span> @Html.DisplayFor(model => model.EmploymentType.Name)</li>
+        <li><span>@Html.DisplayNameFor(model => model.CellPhone):</span> @Html.DisplayFor(model => model.CellPhoneNumber)</li>
+        <li><span>@Html.DisplayNameFor(model => model.HomePhone):</span> @Html.DisplayFor(model => model.HomePhoneNumber)</li>
+        <li><span>@Html.DisplayNameFor(model => model.Email):</span> @Html.DisplayFor(model => model.Email)</li>
+        <li><span>@Html.DisplayNameFor(model => model.DateJoined):</span> @Html.DisplayFor(model => model.DateJoined)</li>
+        <li><span>@Html.DisplayNameFor(model => model.EmergencyContactName):</span> @Html.DisplayFor(model => model.EmergencyContactName)</li>
+        <li><span>@Html.DisplayNameFor(model => model.EmergencyContactPhone):</span> @Html.DisplayFor(model => model.EmergencyContactPhoneNumber)</li>
+        <li><span>@Html.DisplayNameFor(model => model.Notes):</span> @Html.DisplayFor(model => model.Notes)</li>
+    </ul>
+</div>
+<div class="nav-link-container">
+    @if (String.IsNullOrEmpty(ViewData["returnURL"]?.ToString()))
+    {
+        <a asp-action="Index">Back to List of Employees</a>
+    }
+    else
+    {
+        <a href='@ViewData["returnURL"]'>Back to List of Employees</a>
+    }
+</div>

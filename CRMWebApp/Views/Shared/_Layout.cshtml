@@ -1,0 +1,244 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject CRMWebApp.Data.HagerDbContext context
+
+@{
+    bool authenticated = User.Identity.IsAuthenticated;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CRMWebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- Load jquery before bootstrap -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+    <script src="~/js/sidebar.js"></script>
+    <link rel="stylesheet" href="~/css/sidebar.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+
+
+    <!-- Favicon stuff -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#cc1f1f">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div style="position: fixed; z-index: 1000; width: 100%; border-bottom: 2px solid lightgrey">
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-expand-lg navbar-light bg-white static-top">
+            <div class="navbar-header">
+                @if (authenticated)
+                {
+                    <a id="show-sidebar" style="margin: 8px; position: static; color:black" href="#">
+                        <i class="fas fa-bars fa-2x"></i>
+                    </a>
+                }
+                <a class="navbar-brand" asp-controller="Announcements" asp-action="Index">
+                    <img src="~/resources/HagerBranding/PNG/Excel_Quote_Logo.png" alt="">
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div style="padding-top: 72px" class="page-wrapper light-theme hidden-md @(authenticated ? "toggled" : string.Empty)">
+        @if (authenticated)
+        {
+            <nav id="sidebar" class="sidebar-wrapper">
+                <div class="sidebar-content">
+                    <div class="sidebar-header">
+                        <div class="user-pic">
+                            <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                                 alt="User picture">
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">
+                                @if (context.Employees.Where(e => e.Email == User.Identity.Name).FirstOrDefault() != null)
+                                {
+                                    <span>@context.Employees.Where(e => e.Email == User.Identity.Name).FirstOrDefault().FullName</span>
+                                }
+                                else
+                                {
+                                    <span></span>
+                                }
+                            </span>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <span class="user-role">Administrator</span>
+                            }
+                            else if (User.IsInRole("Supervisor"))
+                            {
+                                <span class="user-role">Supervisor</span>
+                            }
+                            else
+                            {
+                                <span class="user-role">Employee</span>
+                            }
+
+                            <span>@User.Identity.Name</span>
+
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Announcements", new { area = "" })">
+                                <button type="submit" class="nav-link logout-button">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- sidebar-search  -->
+                    <div class="sidebar-menu">
+                        <ul>
+                            <li class="header-menu">
+                                <span>General</span>
+                            </li>
+                            <li>
+                                <a asp-controller="Announcements" asp-action="Index">
+                                    <i class="fa fa-book"></i>
+                                    <span>Announcements</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-folder"></i>
+                                    <span>Companies</span>
+                                </a>
+                                <div class="sidebar-submenu" id="companies">
+                                    <ul>
+                                        <li>
+                                            <a asp-controller="Companies" asp-action="Index">All Companies</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Companies" asp-action="Index" asp-route-showContractor="true">Contractors</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Companies" asp-action="Index" asp-route-showCustomer="true">Customers</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Companies" asp-action="Index" asp-route-showVendor="true">Vendors</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-folder"></i>
+                                    <span>Contacts</span>
+                                </a>
+                                <div class="sidebar-submenu" id="contacts">
+                                    <ul>
+                                        <li>
+                                            <a asp-controller="Contacts" asp-action="Index">All Contacts</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Contacts" asp-action="Index" asp-route-showContractor="true">Contractor Contacts</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Contacts" asp-action="Index" asp-route-showCustomer="true">Customer Contacts</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Contacts" asp-action="Index" asp-route-showVendor="true">Vendor Contacts</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="header-menu">
+                                <span>Additional</span>
+                            </li>
+                            <li>
+                                <a asp-controller="Employees" asp-action="Index">
+                                    <i class="fa fa-address-book"></i>
+                                    <span>Employees</span>
+                                </a>
+                            </li>
+                            @*							<li class="sidebar-dropdown">
+                                    <a href="#">
+                                        <i class="fa fa-folder"></i>
+                                        <span>Management</span>
+                                    </a>
+                                    <div class="sidebar-submenu" id="management">
+                                        <ul>
+                                            <li>
+                                                <a href="#">Employees</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>*@
+                            @if (User.IsInRole("Admin") || User.IsInRole("Supervisor"))
+                            {
+                                <li class="sidebar-dropdown">
+                                    <a href="#">
+                                        <i class="fa fa-folder"></i>
+                                        <span>Admin Options</span>
+                                    </a>
+                                    <div class="sidebar-submenu" id="admin">
+                                        <ul>
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-controller="Lookups" asp-action="Index">Maintain Lookup Values</a>
+                                            </li>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register User</a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-controller="UserRoles" asp-action="Index">Manage User Roles</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-controller="Merge" asp-action="Index">Merge Records</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- sidebar-menu  -->
+                </div>
+                <!--
+                <div class="sidebar-footer">
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-pill badge-warning notification">3</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span class="badge badge-pill badge-success notification">7</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-cog"></i>
+                        <span class="badge-sonar"></span>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </div>
+                -->
+            </nav>
+        }
+        <div id="page-content-wrapper" class="container-fluid">
+            <main role="main" class="page-content pb-3">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - CRMWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

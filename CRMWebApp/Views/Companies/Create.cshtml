@@ -1,0 +1,145 @@
+﻿@model CRMWebApp.Models.Company
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-12 col-md-10 col-xl-8">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group form-check">
+				<label class="form-check-label">
+					<input class="form-check-input" checked asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+				</label>
+			</div>
+			<div class="form-group form-check">
+				<label class="form-check-label">
+					<input class="form-check-input" asp-for="CreditCheck" /> @Html.DisplayNameFor(model => model.CreditCheck)
+				</label>
+			</div>
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Location" class="control-label"></label>
+				<input asp-for="Location" class="form-control" />
+				<span asp-validation-for="Location" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Phone" class="control-label"></label>
+				<input asp-for="Phone" class="form-control" />
+				<span asp-validation-for="Phone" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Website" class="control-label"></label>
+				<input asp-for="Website" class="form-control" />
+				<span asp-validation-for="Website" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="BillingTermID" class="control-label"></label>
+				<select asp-for="BillingTermID" class="form-control" asp-items="ViewBag.BillingTermID">
+					<option value=""> None</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label asp-for="BillingCountryID" class="control-label"></label>
+				<select asp-for="BillingCountryID" class="form-control" asp-items="ViewBag.BillingCountryID">
+					<option value=""> None</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label asp-for="BillingProvinceID" class="control-label"></label>
+				<select asp-for="BillingProvinceID" class="form-control" asp-items="ViewBag.BillingProvinceID">
+					<option value=""> None</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label asp-for="BillingAddress1" class="control-label"></label>
+				<input asp-for="BillingAddress1" class="form-control" />
+				<span asp-validation-for="BillingAddress1" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="BillingAddress2" class="control-label"></label>
+				<input asp-for="BillingAddress2" class="form-control" />
+				<span asp-validation-for="BillingAddress2" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="BillingCity" class="control-label"></label>
+				<input asp-for="BillingCity" class="form-control" />
+				<span asp-validation-for="BillingCity" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="BillingPostalCode" class="control-label"></label>
+				<input asp-for="BillingPostalCode" class="form-control" />
+				<span asp-validation-for="BillingPostalCode" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ShippingCountryID" class="control-label"></label>
+				<select asp-for="ShippingCountryID" class="form-control" asp-items="ViewBag.ShippingCountryID">
+					<option value=""> None</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label asp-for="ShippingProvinceID" class="control-label"></label>
+				<select asp-for="ShippingProvinceID" class="form-control" asp-items="ViewBag.ShippingProvinceID">
+					<option value=""> None</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label asp-for="ShippingAddress1" class="control-label"></label>
+				<input asp-for="ShippingAddress1" class="form-control" />
+				<span asp-validation-for="ShippingAddress1" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ShippingAddress2" class="control-label"></label>
+				<input asp-for="ShippingAddress2" class="form-control" />
+				<span asp-validation-for="ShippingAddress2" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ShippingCity" class="control-label"></label>
+				<input asp-for="ShippingCity" class="form-control" />
+				<span asp-validation-for="ShippingCity" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ShippingPostalCode" class="control-label"></label>
+				<input asp-for="ShippingPostalCode" class="form-control" />
+				<span asp-validation-for="ShippingPostalCode" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="CurrencyID" class="control-label"></label>
+				<select asp-for="CurrencyID" class="form-control" asp-items="ViewBag.CurrencyID">
+					<option value=""> None</option>
+				</select>
+			</div>
+
+			<partial name="_CompanyTypes.cshtml" />
+
+			<div class="form-group">
+				<label asp-for="Notes" class="control-label"></label>
+				<input asp-for="Notes" class="form-control" />
+				<span asp-validation-for="Notes" class="text-danger"></span>
+			</div>
+            <div class="form-group">
+                <input id="btnSubmit" type="submit" value="Create and Finish" name="finish" class="btn btn-primary" />
+                <input id="btnSubmit2" type="submit" value="Create and Add Contacts" name="add" class="btn btn-primary" />
+            </div>
+		</form>
+    </div>
+</div>
+
+<div>
+    <a href='@ViewData["returnURL"]'>Back to List of Companies</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	<script src="~/js/companyMultiselect.js"></script>
+	<script src="~/js/shippingAndBillingDDL.js"></script>
+}

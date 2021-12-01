@@ -1,0 +1,415 @@
+﻿@using CRMWebApp.Utility
+@model MergeHelper
+<div class="d-table-cell">
+    <div class="form-group">
+        <div>
+            <h1>Merge Data</h1>
+            @if (Model != null)
+            {
+                <input type="hidden" name="mergeIDLeft" value=@Model.CompanyMergeList.ElementAt(0).ID>
+                <input type="hidden" name="mergeIDRight" value=@Model.CompanyMergeList.ElementAt(1).ID>
+                <table class="table" id="mergetable">
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td class="col-sm-10 blockquote">
+                                <h4>@Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Name)</h4>
+                            </td>
+                            <td></td>
+                            <td class="col-sm-10 blockquote">
+                                <h4>@Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Name)</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).Active)
+                            </td>
+                            <td class="col-sm-2 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Active)
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-2 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Active)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).CreditCheck)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).CreditCheck)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).CreditCheck)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).Name)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Name)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).Location)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Location)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Location)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).Phone)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Phone)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Phone)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).Website)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Website)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Website)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).BillingTerm.Name)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).BillingTerm.Name)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).BillingTerm.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).BillingCountry.Name)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).BillingCountry.Name)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).BillingCountry.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).BillingProvince.Name)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).BillingProvince.Name)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).BillingProvince.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).BillingCity)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).BillingCity)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).BillingCity)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).BillingAddress1)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).BillingAddress1)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).BillingAddress1)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).BillingAddress2)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).BillingAddress2)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).BillingAddress2)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).BillingPostalCode)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).BillingPostalCode)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).BillingPostalCode)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).ShippingCountry.Name)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).ShippingCountry.Name)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).ShippingCountry.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).ShippingProvince.Name)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).ShippingProvince.Name)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).ShippingProvince.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).ShippingCity)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).ShippingCity)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).ShippingCity)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).ShippingAddress1)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).ShippingAddress1)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).ShippingAddress1)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).ShippingAddress2)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).ShippingAddress2)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).ShippingAddress2)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).ShippingPostalCode)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).ShippingPostalCode)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).ShippingPostalCode)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).Currency)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Currency.Name)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Currency.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CompanyMergeList.ElementAt(0).Notes)
+                            </td>
+                            <td class="col-sm-10 mergeLeft">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(0).Notes)
+                            </td>
+                            <td class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <div><span></span></div>
+                                    <input type="hidden" name="mergeFields[]" value="0">
+                                </label>
+                            </td>
+                            <td class="col-sm-10 mergeRight">
+                                @Html.DisplayFor(model => model.CompanyMergeList.ElementAt(1).Notes)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <tr>
+                    <td class="col-sm-10 mergeRight">
+                        Please Select Two Companies/No Company Data
+                    </td>
+                </tr>
+            }
+        </div>
+        <hr />
+    </div>
+</div>

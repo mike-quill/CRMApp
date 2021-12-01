@@ -1,0 +1,46 @@
+﻿@model List<JobPosition>
+@{
+	ViewData["Title"] = "Sort";
+}
+
+@using (Html.BeginForm("Sort", "JobPositions", FormMethod.Post))
+{
+	<h3>Drag and Drop to Reorder List</h3>
+	<table id="JobPosition" class="sortable table w-auto table-bordered">
+		<thead class="thead-light">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (JobPosition job in Model)
+			{
+				<tr>
+					<td>
+						@job.ID
+						<input type="hidden" name="jobId" value="@job.ID" />
+					</td>
+					<td>@job.Name</td>
+				</tr>
+			}
+		</tbody>
+
+	</table>
+	<br />
+	<input type="submit" value="Update Preference" class="btn ml-0" />
+	<div>
+		<a asp-action="Index" asp-controller="Lookups" asp-route-Tab="JobPositionsTab">Back to Lookup List</a>
+	</div>
+	<script type="text/javascript">
+		$(".sortable tbody").sortable();
+		$(".sortable tbody").disableSelection();
+	</script>
+}
+
+
+
+
+
+
+

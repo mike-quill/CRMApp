@@ -1,0 +1,47 @@
+﻿<br />
+<div class="card mb-sm-3" style="min-width: 18rem;">
+	<div class="card-header">
+		<h4 id="Provinces">Provinces/States</h4>
+		Select Country to view Provinces or States from:
+		@*@Html.DropDownList("CountryID", null, htmlAttributes: new { @class = "form-control" })*@
+		<select class="form-control" id="CountryID" name="CountryID" asp-items="ViewBag.CountryID">
+			<option value="">All Countries</option>
+		</select>
+	</div>
+	<div class="card-body">
+		@Html.DropDownList("ProvincesID", null, htmlAttributes: new { @size = 20, @class = "form-control" })
+	</div>
+    <div class="card-footer">
+        <a asp-controller="Provinces" asp-action="Create">Create</a> |
+        @*<a asp-controller="Provinces" asp-action="Sort">Sort</a> |*@
+        <a asp-controller="Provinces" asp-action="Edit" class="linkClick">Edit</a> |
+        <a asp-controller="Provinces" asp-action="Delete" class="linkClick">Delete</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+        $('#CountryID').change(function () {
+            var selectedCountry = $("#CountryID").val();
+            var theDDL = $("#ProvincesID");
+            theDDL.empty();
+            var URL = "/Employees/GetProvinces/" + selectedCountry;
+            $(function () {
+                $.getJSON(URL, function (data) {
+                    if (data !== null && !jQuery.isEmptyObject(data)) {
+                        $.each(data, function (index, item) {
+                            theDDL.append($('<option/>', {
+                                value: item.value,
+                                text: item.text
+                            }));
+                        });
+                        theDDL.trigger("chosen:updated");
+                    } else {
+                        theDDL.append($('<option/>', {
+                            value: null,
+                            text: 'No Provinces in that Country'
+                        }));
+                    };
+                });
+            });
+        });
+</script>

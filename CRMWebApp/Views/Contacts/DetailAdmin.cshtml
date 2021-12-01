@@ -1,0 +1,36 @@
+﻿@model CRMWebApp.Models.Contact
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName) (Contact)</h1>
+
+<div class="details-container">
+    <ul>
+        <li><span>@Html.DisplayNameFor(model => model.FirstName):</span> @Html.DisplayFor(model => model.FirstName)</li>
+        <li><span>@Html.DisplayNameFor(model => model.LastName):</span> @Html.DisplayFor(model => model.LastName)</li>
+        <li><span>@Html.DisplayNameFor(model => model.JobTitle):</span> @Html.DisplayFor(model => model.JobTitle)</li>
+        <li><span>@Html.DisplayNameFor(model => model.CellPhone):</span> @Html.DisplayFor(model => model.CellPhone)</li>
+        <li><span>@Html.DisplayNameFor(model => model.WorkPhone):</span> @Html.DisplayFor(model => model.WorkPhone)</li>
+        <li><span>@Html.DisplayNameFor(model => model.Email):</span> @Html.DisplayFor(model => model.Email)</li>
+        <li><span>@Html.DisplayNameFor(model => model.Active):</span> @Html.DisplayFor(model => model.Active)</li>
+        <li><span>@Html.DisplayNameFor(model => model.Notes):</span> @Html.DisplayFor(model => model.Notes)</li>
+        <li><span>@Html.DisplayNameFor(model => model.Company):</span> <a asp-controller="Companies" asp-action="Details" asp-route-id="@Model.CompanyID">@Html.DisplayFor(model => model.Company.Summary)</a></li>
+        <li>
+            <span>Categories:</span>
+            <ul>
+                @foreach (var item in Model.ContactCategories)
+                {
+                    <li>@item.Category.Name</li>
+                }
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="nav-link-container">
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+        <a asp-action="Delete" asp-route-id="@Model.ID"> Delete Contact</a> |
+        <a href='@ViewData["returnURL"]'>Back to List of Contacts</a>
+</div>

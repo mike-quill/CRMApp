@@ -1,0 +1,98 @@
+﻿@model IEnumerable<CRMWebApp.Models.Contact>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input type="submit" name="actionButton" value="First Name" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" name="actionButton" value="Last Name" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Category" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Cell Phone" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Work Phone" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Email" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Active" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Notes" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" name="actionButton" value="Company" class="btn-link" />
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @{
+                        int categoryCount = item.ContactCategories.Count;
+                        if (categoryCount > 0)
+                        {
+                            string firstCategory = item.ContactCategories.FirstOrDefault().Category.Name;
+                            if (categoryCount > 1)
+                            {
+                                string categoryList = firstCategory;
+                                var c = item.ContactCategories.ToList();
+                                for (int i = 1; i < categoryCount; i++)
+                                {
+                                    categoryList += ", " + c[i].Category.Name;
+                                }
+                                <a tabindex="0" class="" role="button" data-toggle="popover"
+                                   data-trigger="focus" title="Category" data-placement="bottom" data-content="@categoryList">@firstCategory... <span class="badge badge-info" style="background-color: #900028">@categoryCount</span></a>
+                            }
+                            else
+                            {
+                                @firstCategory
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CellPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Summary)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Supervisor"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> @: |
+                    }
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

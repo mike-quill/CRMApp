@@ -1,0 +1,46 @@
+﻿@model List<CustomerType>
+@{
+	ViewData["Title"] = "Sort";
+}
+
+@using (Html.BeginForm("Sort", "CustomerTypes", FormMethod.Post))
+{
+	<h3>Drag and Drop to Reorder List</h3>
+	<table id="CustomerType" class="sortable table w-auto table-bordered">
+		<thead class="thead-light">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (CustomerType customer in Model)
+			{
+				<tr>
+					<td>
+						@customer.ID
+						<input type="hidden" name="customerId" value="@customer.ID" />
+					</td>
+					<td>@customer.Name</td>
+				</tr>
+			}
+		</tbody>
+
+	</table>
+	<br />
+	<input type="submit" value="Update Preference" class="btn ml-0" />
+	<div>
+		<a asp-action="Index" asp-controller="Lookups" asp-route-Tab="BillingTermsTab">Back to Lookup List</a>
+	</div>
+	<script type="text/javascript">
+		$(".sortable tbody").sortable();
+		$(".sortable tbody").disableSelection();
+	</script>
+}
+
+
+
+
+
+
+

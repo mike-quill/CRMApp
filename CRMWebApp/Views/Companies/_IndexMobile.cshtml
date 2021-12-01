@@ -1,0 +1,133 @@
+﻿@model IEnumerable<CRMWebApp.Models.Company>
+
+<table id="collapse-table" class="table">
+    <thead>
+        <tr>
+            <th>
+                <input type="submit" name="actionButton" value="Name" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" name="disabled" value="Location" class="btn-link" />
+            </th>
+            <th>
+                <input type="submit" disabled="disabled" value="Phone" class="btn-link" />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-toggle="collapse" data-target="#collapsed-row-@item.ID" class="collapsed collapsible-row">
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <!-- Collapse on the div because animations do not work on the td -->
+                    <div id="collapsed-row-@item.ID" class="collapse collapsed-row" data-parent="#collapse-table">
+                        <div class="details-container">
+                            <ul>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.Name):</span> @Html.DisplayFor(modelItem => item.Name)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.Location):</span> @Html.DisplayFor(modelItem => item.Location)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.Phone):</span> @Html.DisplayFor(modelItem => item.PhoneNumber)</li>
+                                <li>
+                                    <span>@Html.DisplayNameFor(modelItem => item.Website):</span>
+                                    <a href="@Html.DisplayFor(modelItem => item.Website)" target="_blank">
+                                        @Html.DisplayFor(modelItem => item.Website)
+                                    </a>
+                                </li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.BillingCity):</span> @Html.DisplayFor(modelItem => item.BillingCity)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.BillingAddress1):</span> @Html.DisplayFor(modelItem => item.BillingAddress1)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.ShippingCity):</span> @Html.DisplayFor(modelItem => item.ShippingCity)</li>
+                                <li><span>@Html.DisplayNameFor(modelItem => item.ShippingAddress1):</span> @Html.DisplayFor(modelItem => item.ShippingAddress1)</li>
+                                <li>
+                                    <span>Contractor Types:</span>
+                                    @{
+                                        int contractCount = item.CompanyContractorTypes.Count;
+                                        if (contractCount > 0)
+                                        {
+                                            string firstContract = item.CompanyContractorTypes.FirstOrDefault().ContractorType.Name;
+                                            if (contractCount > 1)
+                                            {
+                                                string contractList = firstContract;
+                                                var c = item.CompanyContractorTypes.ToList();
+                                                for (int i = 1; i < contractCount; i++)
+                                                {
+                                                    contractList += ", " + c[i].ContractorType.Name;
+                                                }
+                                                <a tabindex="0" class="" role="button" data-toggle="popover"
+                                                   data-trigger="focus" title="Contractor Types" data-placement="bottom" data-content="@contractList">@firstContract... <span class="badge badge-info" style="background-color: #900028">@contractCount</span></a>
+                                            }
+                                            else
+                                            {
+                                                @firstContract
+                                            }
+                                        }
+                                    }
+                                </li>
+                                <li>
+                                    <span>Customer Types:</span>
+                                    @{
+                                        int customerCount = item.CompanyCustomerTypes.Count;
+                                        if (customerCount > 0)
+                                        {
+                                            string firstCustomer = item.CompanyCustomerTypes.FirstOrDefault().CustomerType.Name;
+                                            if (customerCount > 1)
+                                            {
+                                                string customerList = firstCustomer;
+                                                var c = item.CompanyCustomerTypes.ToList();
+                                                for (int i = 1; i < customerCount; i++)
+                                                {
+                                                    customerList += ", " + c[i].CustomerType.Name;
+                                                }
+                                                <a tabindex="0" class="" role="button" data-toggle="popover"
+                                                   data-trigger="focus" title="Customer Types" data-placement="bottom" data-content="@customerList">@firstCustomer... <span class="badge badge-info" style="background-color: #900028">@customerCount</span></a>
+                                            }
+                                            else
+                                            {
+                                                @firstCustomer
+                                            }
+                                        }
+                                    }
+                                </li>
+                                <li>
+                                    <span>Vendor Types:</span>
+                                    @{
+                                        int vendorCount = item.CompanyVendorTypes.Count;
+                                        if (vendorCount > 0)
+                                        {
+                                            string firstVendor = item.CompanyVendorTypes.FirstOrDefault().VendorType.Name;
+                                            if (vendorCount > 1)
+                                            {
+                                                string vendorList = firstVendor;
+                                                var v = item.CompanyVendorTypes.ToList();
+                                                for (int i = 1; i < vendorCount; i++)
+                                                {
+                                                    vendorList += ", " + v[i].VendorType.Name;
+                                                }
+                                                <a tabindex="0" class="" role="button" data-toggle="popover"
+                                                   data-trigger="focus" title="Vendor Types" data-placement="bottom" data-content="@vendorList">@firstVendor... <span class="badge badge-info" style="background-color: #900028">@vendorCount</span></a>
+                                            }
+                                            else
+                                            {
+                                                @firstVendor
+                                            }
+                                        }
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> @: |
+                            }
+                            <a asp-action="Details" asp-route-id="@item.ID"> Details </a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
